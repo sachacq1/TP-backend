@@ -1,0 +1,17 @@
+{
+  "name": "user-app-utn",
+  "version": "0.0.1",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "info": "node ./utils/info.js",
+    "dev": "PATH_FILE_USER='./data/users.json' PATH_FILE_ERROR='./error/log.json' node models.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  }
+}
