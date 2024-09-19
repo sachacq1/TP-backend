@@ -5,6 +5,7 @@ import { randomUUID } from "node:crypto";
 import { handleError } from "./utils/handleError.js";
 import { url } from "node:inspector";
 import dotenv from "dotenv";
+import bcrypt from "bcrypt";
 
 dotenv.config();
 
@@ -59,25 +60,31 @@ const getUserById = (id) => {
 // valida que el apellido sea un string
 // valida que el email sea un string y que no se repita
 // hashea la contraseña antes de registrar al user
-const addUser = (user) => {
+const addUser = async (user) => {
   try {
     const { name, lastName, email, password } = user;
+
     if (!name || !lastName || !email || !password) {
       throw new Error("Faltan datos");
     }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = {
       id: randomUUID(),
       name,
       lastName,
       email,
-      password,
+      password: hashedPassword,
       createdAt: new Date().toISOString(),
       updateAt: new Date().toISOString(),
     };
 
     const users = getUsers(PATH_FILE_USER);
 
+    if (users.find((user) => user.email === email)) {
+      throw new Error("El email ya está en uso.");
+    }
     users.push(newUser);
 
     writeFileSync(PATH_FILE_USER, JSON.stringify(users));
@@ -92,21 +99,24 @@ const addUser = (user) => {
 // todos los datos del user seleccionado se podrían modificar menos el ID
 // si se modifica la pass debería ser nuevamente hasheada
 // si se modifica el email, validar que este no exista
-const updateUser = (userData) => {
+const updateUser = async (userData) => {
   try {
     const { id, name, lastName, email, password } = userData;
-    if (!id || !userData);
-    {
+    if (!id) {
       throw new Error("ID no encontrada");
     }
 
     const users = getUsers(PATH_FILE_USER);
     const user = getUserById(id);
 
+    if (email && users.find((u) => u.email === email && u.id !== id)) {
+      throw new Error("El email ya está en uso.");
+    }
+
     if (name) user.name = name;
     if (lastName) user.lastName = lastName;
     if (email) user.email = email;
-    if (password) user.password = password;
+    if (password) user.password = await bcrypt.hash(password, 10); // Hashea la nueva contraseña
 
     user.updateAt = new Date().toISOString();
 
@@ -137,13 +147,24 @@ const deleteUser = (id) => {
   }
 };
 
-const respuesta = addUser({
-  name: "martin",
-  lastName: "gonzales",
-  //   email: "martn@gma.com",
-  password: "234meg",
-});
+// const respuesta = addUser({
+//   name: "martin",
+//   lastName: "gonzales",
+//   email: "mar6tn@gma.com",
+//   password: "234meg",
+// });
 
-console.log(respuesta);
+// console.log(respuesta);
+const respuesta = async () => {
+  const result = await addUser({
+    name: "martin",
+    lastName: "gonzales",
+    email: "martddn@gma.com",
+    password: "234meddg",
+  });
+  console.log(result);
+};
+
+respuesta();
 
 export { getUsers, getUserById, addUser, updateUser, deleteUser };
