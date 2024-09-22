@@ -1,9 +1,9 @@
 *************************
-How to use:
-node index.js help -> information about commands.
-node index.js list -> list all Users. 
-node index.js search "User_id" -> search User by id. 
-node index.js add "Nombre" "Apellido" "Email" "Password" -> create new User.
-node index.js update "User_id" "Nombre" "Apellido" "Email" "Password" -> update User data.
-node index.js delete "User_id" -> delete User.
+Como usar los comandos:
+node index.js comand -> Informacion sobre los comandos.
+node index.js list -> Muestra lista de usuarios. 
+node index.js search "User_id" -> Busca usuario por id. 
+node index.js add "Nombre" "Apellido" "Email" "Password" -> Crear nuevo usuario.
+node index.js update "User_id" "Nombre" "Apellido" "Email" "Password" -> Actualizar data del usuario.
+node index.js delete "User_id" -> Eliminar usuario.
 *************************
