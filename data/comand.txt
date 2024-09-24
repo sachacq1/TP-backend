@@ -6,4 +6,5 @@ node index.js search "User_id" -> Busca usuario por id.
 node index.js add "Nombre" "Apellido" "Email" "Password" -> Crear nuevo usuario.
 node index.js update "User_id" "Nombre" "Apellido" "Email" "Password" -> Actualizar data del usuario.
 node index.js delete "User_id" -> Eliminar usuario.
+node index.js info -> Informacion sobre la app
 *************************

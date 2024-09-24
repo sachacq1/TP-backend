@@ -3,7 +3,7 @@ import { randomUUID, createHash } from "node:crypto";
 // Averiguar que importar de NODE para realizar el hash del pass
 // Averiguar como "activar" la lectura de las variables de entorno del archivo .env (dotenv)
 import { handleError } from "./utils/handleError.js";
-import { url } from "node:inspector";
+// import { url } from "node:inspector";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -111,14 +111,13 @@ const addUser = (user) => {
 // si se modifica el email, validar que este no exista
 const updateUser = (userData) => {
   try {
-    const { id, name, lastName, email, password } = userData; // Mover la desestructuración aquí
-
+    const { id, name, lastName, email, password } = userData;
     if (!id) {
       throw new Error("ID no encontrada");
     }
 
     const users = getUsers(PATH_FILE_USER);
-    const user = users.find((u) => u.id === id); // Llama a getUserById después de definir id
+    const user = users.find((u) => u.id === id);
 
     if (
       typeof name !== "string" ||
@@ -136,10 +135,9 @@ const updateUser = (userData) => {
       throw new Error("El email ya está en uso.");
     }
 
-    // Solo hashea la contraseña si se proporciona
     if (password) {
       const hashedPass = createHash("sha256").update(password).digest("hex");
-      user.password = hashedPass; // Actualiza la contraseña hasheada
+      user.password = hashedPass;
     }
 
     // Actualiza otros campos
@@ -149,7 +147,6 @@ const updateUser = (userData) => {
 
     user.updateAt = new Date().toISOString();
 
-    // Actualiza la lista de usuarios
     writeFileSync(PATH_FILE_USER, JSON.stringify(users));
 
     return user;

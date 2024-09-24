@@ -9,7 +9,7 @@ Puedes usar los siguientes comandos en la terminal:
 1. **Obtener información sobre los comandos:**
 
    ```bash
-   node index.js help
+   node index.js comand
    ```
 
 2. **Listar todos los usuarios:**
@@ -39,6 +39,10 @@ Puedes usar los siguientes comandos en la terminal:
 6. **Eliminar un usuario:**
    ```bash
    node index.js delete "User_id"
+   ```
+7. **Informacion sobre la app:**
+   ```bash
+   node index.js info
    ```
 
 ## Instalación

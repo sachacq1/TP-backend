@@ -17,7 +17,7 @@ import {
 } from "./utils/createObjetcUser.js";
 import { handleError } from "./utils/handleError.js";
 import { comand } from "./utils/comand.js";
-import { info } from "./utils/info.json";
+import { info } from "./utils/info.js";
 
 dotenv.config();
 
@@ -46,7 +46,7 @@ switch (action) {
     console.log(comand());
     break;
   case "info":
-    console.log(info());
+    console.log(info);
     break;
   default:
     const error = handleError(
